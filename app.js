@@ -5,17 +5,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var tasksRouter = require('./routes/tasks');
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
+app.set('json spaces', 2);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/tasks', tasksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -30,7 +32,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    code: err.status || 500,
+    error: err
+  });
 });
 
 module.exports = app;
