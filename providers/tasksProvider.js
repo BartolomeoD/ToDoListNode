@@ -32,7 +32,7 @@ TasksProvider = function () {
             } else {
                 _task.text = task.text;
                 _task.done = task.done;
-                _task.color = task.color;
+                _task.proiority = task.proiority;
                 _task.parentId = task.parentId;
 
                 cb(null, task.id);
