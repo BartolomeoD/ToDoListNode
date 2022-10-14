@@ -35,7 +35,7 @@ TasksProvider = function () {
                 _task.color = task.color;
                 _task.parentId = task.parentId;
 
-                cb(null, null);
+                cb(null, task.id);
             }
         });
     };

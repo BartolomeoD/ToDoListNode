@@ -17,9 +17,29 @@ router.post('/', function (req, res, next) {
     }));
 });
 
+router.post('/:id', function (req, res, next) {
+    const task = {
+        ...req.body,
+        id: req.params.id
+    };
+    tasksProvider.update(task, mapResultCallback(res, (val) => {
+        return {
+            result: val
+        }
+    }));
+});
 
-function mapResultCallback (resp, mapping = null) {
-    return function(error, value) {
+router.delete('/:id', function (req, res, next) {
+    tasksProvider.delete(req.params.id, mapResultCallback(res, (val) => {
+        return {
+            result: val
+        }
+    }));
+});
+
+
+function mapResultCallback(resp, mapping = null) {
+    return function (error, value) {
         if (error === null) {
             resp.json(mapping == null ? value : mapping(value));
         } else {
